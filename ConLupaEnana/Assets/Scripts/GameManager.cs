@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public int genuineProb { get; private set; }
     public int syntheticProb { get; private set; }
     public float finalMult { get; private set; }
-    public GameObject gemObj;
+    public GameObject gemObj, dwarfObj;
 
     void Awake()
     {
@@ -25,12 +25,17 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)){
             Destroy(gemObj);
+            Destroy(dwarfObj);
             gemObj = new GameObject("GemObject", typeof(Gem));
             Gem gem = gemObj.GetComponentInChildren<Gem>();
+            dwarfObj = new GameObject("DwarfObject", typeof(Dwarf));
+            Dwarf dwarf = dwarfObj.GetComponentInChildren<Dwarf>();
 
             gem.newGem(genuineProb, syntheticProb, finalMult);
+            dwarf.newDwarf(gem.price);
 
-            Debug.Log("Joya: "+gem.gem+"\nType: "+gem.type+"\nPrice and Final Price: "+gem.price+"\t "+gem.finalPrice+"Color: "+gem.color+"\nHardness and shape: "+gem.hardness+"\t "+gem.shape+"\nSize and Weight: "+gem.size+"\t "+gem.weight);
+            Debug.Log("Gem: "+gem.gem+"\nType: "+gem.type+"\nPrice and Final Price: "+gem.price+"\t "+gem.finalPrice+"Color: "+gem.color+"\nHardness and shape: "+gem.hardness+"\t "+gem.shape+"\nSize and Weight: "+gem.size+"\t "+gem.weight);
+            Debug.Log("Dwarf: "+dwarf.behaviour+"\nOffer: "+dwarf.offer+"\nSkin and hair color: "+dwarf.skinColor+"\t "+dwarf.hairColor+"Clothes: "+dwarf.clothes+"\nHair and Beard type: "+dwarf.hairType+"\t "+dwarf.beardType);
         }
         
     }
